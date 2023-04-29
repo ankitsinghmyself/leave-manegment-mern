@@ -17,17 +17,17 @@ export default function AdminDashboard() {
   const columns = [
     {
       name: 'Id',
-      selector: (row) => row.id,
+      selector: (row) => row._id,
       sortable: true,
     },
     {
       name: 'User Name',
-      selector: (row) => row.username,
+      selector: (row) => row.firstname,
       sortable: true,
     },
     {
       name: 'Leave Type',
-      selector: (row) => row.leavetype,
+      selector: (row) => row.leaveType,
       sortable: true,
     },
     {
@@ -37,12 +37,12 @@ export default function AdminDashboard() {
     },
     {
       name: 'Start Date',
-      selector: (row) => row.startdate,
+      selector: (row) => row.startDate,
       sortable: true,
     },
     {
       name: 'End Date',
-      selector: (row) => row.enddate,
+      selector: (row) => row.endDate,
       sortable: true,
     },
     {
@@ -61,7 +61,7 @@ export default function AdminDashboard() {
             <button
               type="button"
               name="approved"
-              disabled={row.status == 'approved'}
+              disabled={row.status === 'approved'}
               className="py-2 px-4 mb-0 font-bold text-white transition-all bg-green-600 rounded-full cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs disabled:bg-gray-500 disabled:cursor-default text-sm ease-in shadow-md"
               onClick={() => leaveAction(row, 'approved')}
             >
@@ -70,7 +70,7 @@ export default function AdminDashboard() {
             <button
               type="button"
               name="canceled"
-              disabled={row.status == 'canceled'}
+              disabled={row.status === 'canceled'}
               className="py-2 px-4 mb-0 font-bold text-white transition-all bg-red-600 rounded-full cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs disabled:bg-gray-500 disabled:cursor-default text-sm ease-in shadow-md"
               onClick={() => leaveAction(row, 'canceled')}
             >
@@ -105,6 +105,7 @@ export default function AdminDashboard() {
         'http://localhost:3300/api/account/getallleaves'
       );
       if (res.status === 200) {
+        console.log(res.data);
         setLeaveData(res.data);
         var userRecords = [];
         res.data.map((filteredLeave) => {

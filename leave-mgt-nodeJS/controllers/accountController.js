@@ -104,7 +104,14 @@ const accountController = {
 
   getAllLeaves: async (req, res) => {
     try {
-      const leaves = await Account.find().select('leaves');
+      const accounts = await Account.find();
+      const leaves = accounts.map((account) => {
+        return {
+          _id: account._id,
+          firstname: account.firstname,
+          leaves: account.leaves,
+        };
+      });
       res.json(leaves);
     } catch (err) {
       console.error(err);
